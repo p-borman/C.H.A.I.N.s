@@ -35,15 +35,13 @@ public class ChainEngineImplTest
     public void testShouldModifyEach()
     {
         chainEngine.each(testClasses, new Action<TestClass>() {
-            @Override
-            public void preform(TestClass obj) {
+                        public void preform(TestClass obj) {
                 obj.setNum(obj.getNum() + 5);
             }
         });
 
         ArrayList<Integer> select = new ArrayList<Integer>(chainEngine.select(testClasses, new Selector<TestClass, Integer>() {
-            @Override
-            public Integer select(TestClass obj) {
+                        public Integer select(TestClass obj) {
                 return obj.getNum();
             }
         }));
@@ -65,8 +63,7 @@ public class ChainEngineImplTest
         ArrayList<TestClass> sort = new ArrayList<TestClass>(chainEngine.sort(testClasses,
                 new Comparator<TestClass>()
                 {
-                    @Override
-                    public int compare(TestClass o1, TestClass o2)
+                                        public int compare(TestClass o1, TestClass o2)
                     {
                         return new Integer(o1.getNum()).compareTo(o2.getNum());
                     }
@@ -102,8 +99,7 @@ public class ChainEngineImplTest
     @Test
     public void testShouldSelect() {
         Collection<Integer> select = chainEngine.select(testClasses, new Selector<TestClass, Integer>() {
-            @Override
-            public Integer select(TestClass obj) {
+                        public Integer select(TestClass obj) {
                 return obj.getNum();
             }
         });
@@ -131,8 +127,7 @@ public class ChainEngineImplTest
         Collection<TestClass> selectMany = new ChainEngineImpl<TestWrapper>().selectMany(
                 testWrappers, new ManySelector<TestWrapper, TestClass>()
         {
-            @Override
-            public Collection<TestClass> select(TestWrapper obj)
+                        public Collection<TestClass> select(TestWrapper obj)
             {
                 return obj.getTestClasses();
             }
@@ -158,8 +153,7 @@ public class ChainEngineImplTest
         Collection<TestClass> where = chainEngine.where(testClasses,
                 new WhereComparator<TestClass>()
                 {
-                    @Override
-                    public boolean meetsCondition(TestClass obj)
+                                        public boolean meetsCondition(TestClass obj)
                     {
                         return obj.getNum() > 3;
                     }
@@ -190,8 +184,7 @@ public class ChainEngineImplTest
     public void testShouldCheckAnyMatchCondition() {
         Boolean any = chainEngine.any(testClasses, new WhereComparator<TestClass>()
         {
-            @Override
-            public boolean meetsCondition(TestClass obj)
+                        public boolean meetsCondition(TestClass obj)
             {
                 return obj.getNum() > 3;
             }
@@ -211,8 +204,7 @@ public class ChainEngineImplTest
     public void testShouldCheckNoneMatchCondition() {
         Boolean none = chainEngine.none(testClasses, new WhereComparator<TestClass>()
         {
-            @Override
-            public boolean meetsCondition(TestClass obj)
+                        public boolean meetsCondition(TestClass obj)
             {
                 return obj.getNum() > 30000;
             }
@@ -232,8 +224,7 @@ public class ChainEngineImplTest
     public void testShouldGetQuantityMatchCondition() {
         Integer count = chainEngine.count(testClasses, new WhereComparator<TestClass>()
         {
-            @Override
-            public boolean meetsCondition(TestClass obj)
+                        public boolean meetsCondition(TestClass obj)
             {
                 return obj.getNum() > 3;
             }
@@ -268,8 +259,7 @@ public class ChainEngineImplTest
     public void testShouldGetFirstMatchingCondition() {
         TestClass first = chainEngine.first(testClasses, new WhereComparator<TestClass>()
         {
-            @Override
-            public boolean meetsCondition(TestClass obj)
+                        public boolean meetsCondition(TestClass obj)
             {
                 return obj.getNum() == 3;
             }
@@ -285,8 +275,7 @@ public class ChainEngineImplTest
         {
             chainEngine.first(testClasses, new WhereComparator<TestClass>()
             {
-                @Override
-                public boolean meetsCondition(TestClass obj)
+                                public boolean meetsCondition(TestClass obj)
                 {
                     return obj.getNum() == 30000;
                 }
@@ -303,8 +292,7 @@ public class ChainEngineImplTest
     public void testShouldGetFirstOrNullMatchingCondition() {
         TestClass first = chainEngine.firstOrNull(testClasses, new WhereComparator<TestClass>()
         {
-            @Override
-            public boolean meetsCondition(TestClass obj)
+                        public boolean meetsCondition(TestClass obj)
             {
                 return obj.getNum() == 3;
             }
@@ -319,8 +307,7 @@ public class ChainEngineImplTest
         final TestClass testClass = chainEngine
                 .firstOrNull(testClasses, new WhereComparator<TestClass>()
                 {
-                    @Override
-                    public boolean meetsCondition(TestClass obj)
+                                        public boolean meetsCondition(TestClass obj)
                     {
                         return obj.getNum() == 30000;
                     }
@@ -348,8 +335,7 @@ public class ChainEngineImplTest
     public void testShouldGetLastMatchingCondition() {
         TestClass last = chainEngine.last(testClasses, new WhereComparator<TestClass>()
         {
-            @Override
-            public boolean meetsCondition(TestClass obj)
+                        public boolean meetsCondition(TestClass obj)
             {
                 return obj.getNum() == 3;
             }
@@ -365,8 +351,7 @@ public class ChainEngineImplTest
         {
             chainEngine.last(testClasses, new WhereComparator<TestClass>()
             {
-                @Override
-                public boolean meetsCondition(TestClass obj)
+                                public boolean meetsCondition(TestClass obj)
                 {
                     return obj.getNum() == 30000;
                 }
@@ -383,8 +368,7 @@ public class ChainEngineImplTest
     public void testShouldGetLastOrNullMatchingCondition() {
         TestClass last = chainEngine.lastOrNull(testClasses, new WhereComparator<TestClass>()
         {
-            @Override
-            public boolean meetsCondition(TestClass obj)
+                        public boolean meetsCondition(TestClass obj)
             {
                 return obj.getNum() == 3;
             }
@@ -399,8 +383,7 @@ public class ChainEngineImplTest
         final TestClass testClass = chainEngine
                 .lastOrNull(testClasses, new WhereComparator<TestClass>()
                 {
-                    @Override
-                    public boolean meetsCondition(TestClass obj)
+                                        public boolean meetsCondition(TestClass obj)
                     {
                         return obj.getNum() == 30000;
                     }
@@ -434,8 +417,7 @@ public class ChainEngineImplTest
         }};
 
         Collection<Integer> distinct = new ChainEngineImpl<Integer>().distinct(numsWithDupes, new Comparator<Integer>() {
-            @Override
-            public int compare(Integer o1, Integer o2) {
+                        public int compare(Integer o1, Integer o2) {
                 return o1.compareTo(o2);
             }
         });
@@ -487,8 +469,7 @@ public class ChainEngineImplTest
         Collection<Integer> concatenate = new ChainEngineImpl<Integer>()
                 .union(nums1, nums2, new Comparator<Integer>()
                 {
-                    @Override
-                    public int compare(Integer o1, Integer o2)
+                                        public int compare(Integer o1, Integer o2)
                     {
                         return o1.compareTo(o2);
                     }
@@ -519,8 +500,7 @@ public class ChainEngineImplTest
         Collection<Integer> concatenate = new ChainEngineImpl<Integer>().intersect(nums2, nums1,
                 new Comparator<Integer>()
                 {
-                    @Override
-                    public int compare(Integer o1, Integer o2)
+                                        public int compare(Integer o1, Integer o2)
                     {
                         return o1.compareTo(o2);
                     }
@@ -551,8 +531,7 @@ public class ChainEngineImplTest
         Collection<Integer> concatenate = new ChainEngineImpl<Integer>().diverge(nums2, nums1,
                 new Comparator<Integer>()
                 {
-                    @Override
-                    public int compare(Integer o1, Integer o2)
+                                        public int compare(Integer o1, Integer o2)
                     {
                         return o1.compareTo(o2);
                     }

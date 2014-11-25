@@ -31,10 +31,9 @@ public class ChainTest
     }
 
     @Test
-    public void testShouldModifyEach()
+    public void testShouldModifyEachObject()
     {
         chain.each(new Action<TestClass>() {
-            @Override
             public void preform(TestClass obj) {
                 obj.setNum(obj.getNum() + 5);
             }
@@ -42,7 +41,6 @@ public class ChainTest
 
         Collection<Integer> selected = chain
                 .select(new Selector<TestClass, Integer>() {
-                    @Override
                     public Integer select(TestClass obj) {
                         return obj.getNum();
                     }
@@ -52,6 +50,26 @@ public class ChainTest
         ArrayList<Integer> select = new ArrayList<Integer>(selected);
         for (int i = 0; i < select.size(); i++){
             assertThat(select.get(i)).isEqualTo(i + 1 + 5);
+        }
+    }
+
+    @Test
+    public void testShouldModifyEachNumber() {
+        List<Integer> integers = new ArrayList<Integer>();
+        final int num = 5;
+        for(int i = 0; i < num; i++){
+            integers.add(i);
+        }
+
+        integers = new Chain<Integer>(integers).select(new Selector<Integer, Integer>() {
+                        public Integer select(Integer obj) {
+                return obj+num;
+            }
+        }).toList();
+
+
+        for(int i = 0; i < num; i++){
+            assertThat(integers.get(i)).isEqualTo(i + num);
         }
     }
 
@@ -67,8 +85,7 @@ public class ChainTest
 
         Collection<TestClass> sorted = chain
                 .sort(new Comparator<TestClass>() {
-                    @Override
-                    public int compare(TestClass o1, TestClass o2) {
+                                        public int compare(TestClass o1, TestClass o2) {
                         return new Integer(o1.getNum()).compareTo(o2.getNum());
                     }
                 })
@@ -106,8 +123,7 @@ public class ChainTest
     public void testShouldSelect() {
         Collection<Integer> select = chain
                 .select(new Selector<TestClass, Integer>() {
-                    @Override
-                    public Integer select(TestClass obj) {
+                                        public Integer select(TestClass obj) {
                         return obj.getNum();
                     }
                 })
@@ -135,8 +151,7 @@ public class ChainTest
 
         Collection<TestClass> selectMany = new Chain<TestWrapper>(testWrappers)
                 .selectMany(new ManySelector<TestWrapper, TestClass>() {
-                    @Override
-                    public Collection<TestClass> select(TestWrapper obj) {
+                                        public Collection<TestClass> select(TestWrapper obj) {
                         return obj.getTestClasses();
                     }
                 })
@@ -161,8 +176,7 @@ public class ChainTest
     public void testShouldFilterUsingWhere() {
         Collection<TestClass> where = chain
                 .where(new WhereComparator<TestClass>() {
-                    @Override
-                    public boolean meetsCondition(TestClass obj) {
+                                        public boolean meetsCondition(TestClass obj) {
                         return obj.getNum() > 3;
                     }
                 }).toList();
@@ -193,8 +207,7 @@ public class ChainTest
         Boolean any = chain
                 .any(new WhereComparator<TestClass>()
                 {
-                    @Override
-                    public boolean meetsCondition(TestClass obj)
+                                        public boolean meetsCondition(TestClass obj)
                     {
                         return obj.getNum() > 3;
                     }
@@ -215,8 +228,7 @@ public class ChainTest
         Boolean none = chain
                 .none(new WhereComparator<TestClass>()
                 {
-                    @Override
-                    public boolean meetsCondition(TestClass obj)
+                                        public boolean meetsCondition(TestClass obj)
                     {
                         return obj.getNum() > 30000;
                     }
@@ -239,8 +251,7 @@ public class ChainTest
         Integer count = chain
                 .count(new WhereComparator<TestClass>()
                 {
-                    @Override
-                    public boolean meetsCondition(TestClass obj)
+                                        public boolean meetsCondition(TestClass obj)
                     {
                         return obj.getNum() > 3;
                     }
@@ -267,8 +278,7 @@ public class ChainTest
     public void testShouldGetNullIfNoFirst() {
         TestClass first = chain.where(new WhereComparator<TestClass>()
         {
-            @Override
-            public boolean meetsCondition(TestClass obj)
+                        public boolean meetsCondition(TestClass obj)
             {
                 return obj.getNum() > 30000;
             }
@@ -281,8 +291,7 @@ public class ChainTest
     public void testShouldGetFirstMatchingCondition() {
         TestClass first = chain.first(new WhereComparator<TestClass>()
         {
-            @Override
-            public boolean meetsCondition(TestClass obj)
+                        public boolean meetsCondition(TestClass obj)
             {
                 return obj.getNum() == 3;
             }
@@ -298,8 +307,7 @@ public class ChainTest
         {
             chain.first(new WhereComparator<TestClass>()
             {
-                @Override
-                public boolean meetsCondition(TestClass obj)
+                                public boolean meetsCondition(TestClass obj)
                 {
                     return obj.getNum() == 30000;
                 }
@@ -316,8 +324,7 @@ public class ChainTest
     public void testShouldGetFirstOrNullMatchingCondition() {
         TestClass first = chain.firstOrNull(new WhereComparator<TestClass>()
         {
-            @Override
-            public boolean meetsCondition(TestClass obj)
+                        public boolean meetsCondition(TestClass obj)
             {
                 return obj.getNum() == 3;
             }
@@ -332,8 +339,7 @@ public class ChainTest
         final TestClass testClass = chain
                 .firstOrNull(new WhereComparator<TestClass>()
                 {
-                    @Override
-                    public boolean meetsCondition(TestClass obj)
+                                        public boolean meetsCondition(TestClass obj)
                     {
                         return obj.getNum() == 30000;
                     }
@@ -353,8 +359,7 @@ public class ChainTest
     public void testShouldGetNullIfNoLast() {
         TestClass last = chain.where(new WhereComparator<TestClass>()
         {
-            @Override
-            public boolean meetsCondition(TestClass obj)
+                        public boolean meetsCondition(TestClass obj)
             {
                 return obj.getNum() > 30000;
             }
@@ -367,8 +372,7 @@ public class ChainTest
     public void testShouldGetLastMatchingCondition() {
         TestClass last = chain.last(new WhereComparator<TestClass>()
         {
-            @Override
-            public boolean meetsCondition(TestClass obj)
+                        public boolean meetsCondition(TestClass obj)
             {
                 return obj.getNum() == 3;
             }
@@ -384,8 +388,7 @@ public class ChainTest
         {
             chain.last(new WhereComparator<TestClass>()
             {
-                @Override
-                public boolean meetsCondition(TestClass obj)
+                                public boolean meetsCondition(TestClass obj)
                 {
                     return obj.getNum() == 30000;
                 }
@@ -402,8 +405,7 @@ public class ChainTest
     public void testShouldGetLastOrNullMatchingCondition() {
         TestClass last = chain.lastOrNull(new WhereComparator<TestClass>()
         {
-            @Override
-            public boolean meetsCondition(TestClass obj)
+                        public boolean meetsCondition(TestClass obj)
             {
                 return obj.getNum() == 3;
             }
@@ -418,8 +420,7 @@ public class ChainTest
         final TestClass testClass = chain
                 .lastOrNull(new WhereComparator<TestClass>()
                 {
-                    @Override
-                    public boolean meetsCondition(TestClass obj)
+                                        public boolean meetsCondition(TestClass obj)
                     {
                         return obj.getNum() == 30000;
                     }
@@ -454,8 +455,7 @@ public class ChainTest
 
         Collection<Integer> distinct = new Chain<Integer>(numsWithDupes)
                 .distinct(new Comparator<Integer>() {
-                    @Override
-                    public int compare(Integer o1, Integer o2) {
+                                        public int compare(Integer o1, Integer o2) {
                         return o1.compareTo(o2);
                     }
                 })
@@ -509,8 +509,7 @@ public class ChainTest
 
         Collection<Integer> concatenate = new Chain<Integer>(nums1)
                 .union(nums2, new Comparator<Integer>() {
-                    @Override
-                    public int compare(Integer o1, Integer o2) {
+                                        public int compare(Integer o1, Integer o2) {
                         return o1.compareTo(o2);
                     }
                 })
@@ -540,8 +539,7 @@ public class ChainTest
 
         Collection<Integer> concatenate = new Chain<Integer>(nums1)
                 .intersect(nums2, new Comparator<Integer>() {
-            @Override
-            public int compare(Integer o1, Integer o2) {
+                        public int compare(Integer o1, Integer o2) {
                 return o1.compareTo(o2);
             }
         })
@@ -571,8 +569,7 @@ public class ChainTest
 
         Collection<Integer> concatenate = new Chain<Integer>(nums1)
                 .diverge(nums2, new Comparator<Integer>() {
-            @Override
-            public int compare(Integer o1, Integer o2) {
+                        public int compare(Integer o1, Integer o2) {
                 return o1.compareTo(o2);
             }
         })

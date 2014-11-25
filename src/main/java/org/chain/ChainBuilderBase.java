@@ -14,7 +14,7 @@ import java.util.*;
  * @param <E> The type of {@link ChainEngine} to use
  */
 public abstract class ChainBuilderBase<T,E extends ChainEngine<T>> implements ChainBuilder<T> {
-    protected E engine;
+    protected final E engine;
     protected Collection<T> collection;
 
     /**
@@ -36,7 +36,7 @@ public abstract class ChainBuilderBase<T,E extends ChainEngine<T>> implements Ch
     }
 
     /**
-     * Preforms an action or modification for each element in the {@link Collection}.
+     * Preforms an action using each element in the {@link Collection}.
      * @param action The action or modification to preform on each element.
      */
     @Override

@@ -17,7 +17,7 @@ class ChainEngineImpl<T> implements ChainEngine<T> {
     ChainEngineImpl(){}
 
     /**
-     * Preforms an action or modification for each element in the {@link Collection}.
+     * Preforms an action using each element in the {@link Collection}.
      * @param collection The collection to operate on.
      * @param action The action or modification to preform on each element.
      */

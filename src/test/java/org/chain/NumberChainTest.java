@@ -56,7 +56,7 @@ public class NumberChainTest
             add(4.45678D);
             add(5.56789D);
         }};
-        assertThat(new NumberChain(collection).sum().doubleValue()).isEqualTo(1.12345D + 2.23456D + 3.34567D + 4.45678D + 5.56789D);
+        assertThat(new NumberChain<Double>(collection).sum().doubleValue()).isEqualTo(1.12345D + 2.23456D + 3.34567D + 4.45678D + 5.56789D);
     }
 
     @Test
