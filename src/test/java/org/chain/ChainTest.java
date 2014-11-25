@@ -174,6 +174,21 @@ public class ChainTest
     }
 
     @Test
+    public void testShouldCheckIfCollectionIsNull() {
+        assertThat(new Chain<TestClass>(null).isNullOrEmpty()).isTrue();
+    }
+
+    @Test
+    public void testShouldCheckIfCollectionIsEmpty() {
+        assertThat(new Chain<TestClass>(new ArrayList<TestClass>()).isNullOrEmpty()).isTrue();
+    }
+
+    @Test
+    public void testShouldCheckIfCollectionIsNotNullOrEmpty() {
+        assertThat(new Chain<TestClass>(testClasses).isNullOrEmpty()).isFalse();
+    }
+
+    @Test
     public void testShouldCheckAnyMatchCondition() {
         Boolean any = chain
                 .any(new WhereComparator<TestClass>()

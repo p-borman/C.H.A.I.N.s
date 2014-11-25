@@ -11,6 +11,7 @@ import java.util.Comparator;
  */
 class NumberChainEngineImpl<T extends Number & Comparable> extends ChainEngineImpl<T> implements NumberChainEngine<T> {
     /**
+     * <br/>{ [ 2, 3, 4 ] } => { 2 }
      * @param collection The collection to operate on.
      * @return The minimum value of all the {@link Number}s in the {@link Collection}.
      */
@@ -25,7 +26,7 @@ class NumberChainEngineImpl<T extends Number & Comparable> extends ChainEngineIm
     }
 
     /**
-     *
+     * <br/>{ [ 2, 3, 4 ] } => { 4 }
      * @param collection The collection to operate on.
      * @return The maximum value of all the {@link Number}s in the {@link Collection}.
      */
@@ -40,7 +41,7 @@ class NumberChainEngineImpl<T extends Number & Comparable> extends ChainEngineIm
     }
 
     /**
-     *
+     * <br/>{ [ 2, 3, 4 ] } => { 9 }
      * @param collection The collection to operate on.
      * @return The sum of all the {@link Number}s in the {@link Collection}.
      */
@@ -54,7 +55,7 @@ class NumberChainEngineImpl<T extends Number & Comparable> extends ChainEngineIm
     }
 
     /**
-     *
+     * <br/>{ [ 2, 3, 4 ] } => { 3 }
      * @param collection The collection to operate on.
      * @return The average of all the {@link Number}s in the {@link Collection}.
      */

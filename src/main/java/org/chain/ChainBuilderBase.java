@@ -167,9 +167,21 @@ public abstract class ChainBuilderBase<T,E extends ChainEngine<T>> implements Ch
     }
 
     /**
+     * Checks if the {@link Collection} is either null or empty.
+     * <br/>{ [ 1, 2, 3, 4 ] } isNullOrEmpty => { false }
+     * <br/>{ [ ] } isNullOrEmpty => { true }
+     * <br/>{ } isNullOrEmpty => { true }
+     * @return True if the {@link Collection} is null or contains zero elements.
+     */
+    @Override
+    public Boolean isNullOrEmpty() {
+        return engine.isNullOrEmpty(collection);
+    }
+
+    /**
      * Checks if any element meet the condition specified in the {@link Collection}.
-     * <br/>{ [ 1, 2, 3, 4 ] } any(a >= 2) => true
-     * <br/>{ [ 1, 2, 3, 4 ] } any(a >= 200) => false
+     * <br/>{ [ 1, 2, 3, 4 ] } any(a >= 2) => { true }
+     * <br/>{ [ 1, 2, 3, 4 ] } any(a >= 200) => { false }
      * @param comparator Defines the condition to be met for each element.
      * @return True if any element meet the condition specified in the {@link Collection}.
      */
@@ -180,8 +192,8 @@ public abstract class ChainBuilderBase<T,E extends ChainEngine<T>> implements Ch
 
     /**
      * Checks if any elements are in the {@link Collection}.
-     * <br/>{ [ 1, 2, 3, 4 ] } any => true
-     * <br/>{ [ ] } any => false
+     * <br/>{ [ 1, 2, 3, 4 ] } any => { true }
+     * <br/>{ [ ] } any => { false }
      * @return True if any elements are in the {@link Collection}.
      */
     @Override
@@ -191,8 +203,8 @@ public abstract class ChainBuilderBase<T,E extends ChainEngine<T>> implements Ch
 
     /**
      * Checks if no elements meet the condition specified in the {@link Collection}.
-     * <br/>{ [ 1, 2, 3, 4 ] } none(a >= 2) => false
-     * <br/>{ [ 1, 2, 3, 4 ] } none(a >= 200) => true
+     * <br/>{ [ 1, 2, 3, 4 ] } none(a >= 2) => { false }
+     * <br/>{ [ 1, 2, 3, 4 ] } none(a >= 200) => { true }
      * @param comparator Defines the condition to be met for each element.
      * @return True if no elements meet the condition specified in the {@link Collection}.
      */
@@ -203,8 +215,8 @@ public abstract class ChainBuilderBase<T,E extends ChainEngine<T>> implements Ch
 
     /**
      * Checks if any elements are in the {@link Collection}.
-     * <br/>{ [ 1, 2, 3, 4 ] } none => false
-     * <br/>{ [ ] } none => true
+     * <br/>{ [ 1, 2, 3, 4 ] } none => { false }
+     * <br/>{ [ ] } none => { true }
      * @return True if no elements are in the {@link Collection}.
      */
     @Override
@@ -214,8 +226,8 @@ public abstract class ChainBuilderBase<T,E extends ChainEngine<T>> implements Ch
 
     /**
      * Counts how many elements meet the condition specified in the {@link Collection}.
-     * <br/>{ [ 1, 2, 3, 4 ] } count(a >= 2) => 3
-     * <br/>{ [ 1, 2, 3, 4 ] } count(a >= 200) => 0
+     * <br/>{ [ 1, 2, 3, 4 ] } count(a >= 2) => { 3 }
+     * <br/>{ [ 1, 2, 3, 4 ] } count(a >= 200) => { 0 }
      * @param comparator Defines the condition to be met for each element.
      * @return How many elements meet the condition specified in the {@link Collection}.
      */
@@ -226,7 +238,7 @@ public abstract class ChainBuilderBase<T,E extends ChainEngine<T>> implements Ch
 
     /**
      * Counts how many elements are in the {@link Collection}.
-     * <br/>{ [ 1, 2, 3, 4 ] } count => 4
+     * <br/>{ [ 1, 2, 3, 4 ] } count => { 4 }
      * @return How many elements are in the {@link Collection}.
      */
     @Override
@@ -337,6 +349,7 @@ public abstract class ChainBuilderBase<T,E extends ChainEngine<T>> implements Ch
     }
 
     /**
+     * <br/>{ [ 1, 2, 3, 4 ] } at(2) => { 3 }
      * @param index
      * @return The element from the collection at the given index.
      */

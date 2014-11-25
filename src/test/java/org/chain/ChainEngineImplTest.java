@@ -172,6 +172,21 @@ public class ChainEngineImplTest
     }
 
     @Test
+    public void testShouldCheckIfCollectionIsNull() {
+        assertThat(chainEngine.isNullOrEmpty(null)).isTrue();
+    }
+
+    @Test
+    public void testShouldCheckIfCollectionIsEmpty() {
+        assertThat(chainEngine.isNullOrEmpty(new ArrayList<TestClass>())).isTrue();
+    }
+
+    @Test
+    public void testShouldCheckIfCollectionIsNotNullOrEmpty() {
+        assertThat(chainEngine.isNullOrEmpty(testClasses)).isFalse();
+    }
+
+    @Test
     public void testShouldCheckAnyMatchCondition() {
         Boolean any = chainEngine.any(testClasses, new WhereComparator<TestClass>()
         {

@@ -10,6 +10,7 @@ import java.util.Collection;
 public final class NumberChain<T extends Number & Comparable> extends ChainBuilderBase<T,NumberChainEngine<T>> implements NumberChainBuilder<T>
 {
     /**
+     *
      * @param collection The {@link Collection} that actions or modifications will be made on.
      */
     public NumberChain(Collection<T> collection){
@@ -17,18 +18,21 @@ public final class NumberChain<T extends Number & Comparable> extends ChainBuild
     }
 
     /**
+     * <br/>{ [ 2, 3, 4 ] } => { 2 }
      * @return The lowest valued {@link Number} in the collection.
      */
     @Override
     public T min() { return engine.min(collection); }
 
     /**
+     * <br/>{ [ 2, 3, 4 ] } => { 4 }
      * @return The highest valued {@link Number} in the collection.
      */
     @Override
     public T max() { return engine.max(collection); }
 
     /**
+     * <br/>{ [ 2, 3, 4 ] } => { 9 }
      * @return The sum of all the {@link Number} in the collection.
      */
     @Override
@@ -37,6 +41,7 @@ public final class NumberChain<T extends Number & Comparable> extends ChainBuild
     }
 
     /**
+     * <br/>{ [ 2, 3, 4 ] } => { 3 }
      * @return The average for all the numbers in the collection.
      */
     @Override

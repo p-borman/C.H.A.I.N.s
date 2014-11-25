@@ -268,9 +268,22 @@ class ChainEngineImpl<T> implements ChainEngine<T> {
     }
 
     /**
+     * Checks if the {@link Collection} is either null or empty.
+     * <br/>{ [ 1, 2, 3, 4 ] } isNullOrEmpty => { false }
+     * <br/>{ [ ] } isNullOrEmpty => { true }
+     * <br/>{ } isNullOrEmpty => { true }
+     * @param collection The collection to operate on.
+     * @return True if the {@link Collection} is null or contains zero elements.
+     */
+    @Override
+    public Boolean isNullOrEmpty(Collection<T> collection) {
+        return collection == null || collection.isEmpty();
+    }
+
+    /**
      * Checks if any element meet the condition specified in the {@link Collection}.
-     * <br/>{ [ 1, 2, 3, 4 ] } any(a >= 2) => true
-     * <br/>{ [ 1, 2, 3, 4 ] } any(a >= 200) => false
+     * <br/>{ [ 1, 2, 3, 4 ] } any(a >= 2) => { true }
+     * <br/>{ [ 1, 2, 3, 4 ] } any(a >= 200) => { false }
      * @param collection The collection to operate on.
      * @param comparator Defines the condition to be met for each element.
      * @return True if any element meet the condition specified in the {@link Collection}.
@@ -287,8 +300,8 @@ class ChainEngineImpl<T> implements ChainEngine<T> {
 
     /**
      * Checks if any elements are in the {@link Collection}.
-     * <br/>{ [ 1, 2, 3, 4 ] } any => true
-     * <br/>{ [ ] } any => false
+     * <br/>{ [ 1, 2, 3, 4 ] } any => { true }
+     * <br/>{ [ ] } any => { false }
      * @param collection The collection to operate on.
      * @return True if any elements are in the {@link Collection}.
      */
@@ -299,8 +312,8 @@ class ChainEngineImpl<T> implements ChainEngine<T> {
 
     /**
      * Checks if no elements meet the condition specified in the {@link Collection}.
-     * <br/>{ [ 1, 2, 3, 4 ] } none(a >= 2) => false
-     * <br/>{ [ 1, 2, 3, 4 ] } none(a >= 200) => true
+     * <br/>{ [ 1, 2, 3, 4 ] } none(a >= 2) => { false }
+     * <br/>{ [ 1, 2, 3, 4 ] } none(a >= 200) => { true }
      * @param collection The collection to operate on.
      * @param comparator Defines the condition to be met for each element.
      * @return True if no elements meet the condition specified in the {@link Collection}.
@@ -312,8 +325,8 @@ class ChainEngineImpl<T> implements ChainEngine<T> {
 
     /**
      * Checks if any elements are in the {@link Collection}.
-     * <br/>{ [ 1, 2, 3, 4 ] } none => false
-     * <br/>{ [ ] } none => true
+     * <br/>{ [ 1, 2, 3, 4 ] } none => { false }
+     * <br/>{ [ ] } none => { true }
      * @param collection The collection to operate on.
      * @return True if no elements are in the {@link Collection}.
      */
@@ -324,8 +337,8 @@ class ChainEngineImpl<T> implements ChainEngine<T> {
 
     /**
      * Counts how many elements meet the condition specified in the {@link Collection}.
-     * <br/>{ [ 1, 2, 3, 4 ] } count(a >= 2) => 3
-     * <br/>{ [ 1, 2, 3, 4 ] } count(a >= 200) => 0
+     * <br/>{ [ 1, 2, 3, 4 ] } count(a >= 2) => { 3 }
+     * <br/>{ [ 1, 2, 3, 4 ] } count(a >= 200) => { 0 }
      * @param collection The collection to operate on.
      * @param comparator Defines the condition to be met for each element.
      * @return How many elements meet the condition specified in the {@link Collection}.
@@ -345,7 +358,7 @@ class ChainEngineImpl<T> implements ChainEngine<T> {
 
     /**
      * Counts how many elements are in the {@link Collection}.
-     * <br/>{ [ 1, 2, 3, 4 ] } count => 4
+     * <br/>{ [ 1, 2, 3, 4 ] } count => { 4 }
      * @param collection The collection to operate on.
      * @return How many elements are in the {@link Collection}.
      */
@@ -510,6 +523,7 @@ class ChainEngineImpl<T> implements ChainEngine<T> {
     }
 
     /**
+     * <br/>{ [ 1, 2, 3, 4 ] } at(2) => { 3 }
      * @param collection The collection to operate on.
      * @param index
      * @return The element from the collection at the given index.
