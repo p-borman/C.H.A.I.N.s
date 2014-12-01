@@ -154,9 +154,9 @@ public interface ChainBuilder<T> {
     //access
     /**
      * <br/>{ [ 1, 2, 3, 4 ] } first => { 1 }
-     * <br/>{ [ ] } first => IndexOutOfBoundsException
+     * <br/>{ [ ] } first => NoSuchElementException
      * @return The first element from the collection.
-     * @throws IndexOutOfBoundsException
+     * @throws NoSuchElementException
      */
     T first();
     /**
@@ -174,7 +174,7 @@ public interface ChainBuilder<T> {
      * @return The first element that meets the condition specified.
      * @throws NoSuchElementException If no matching element found.
      */
-    T first(final WhereComparator<T> comparator) throws NoSuchElementException;
+    T first(final WhereComparator<T> comparator);
     /**
      * Selects {@link Collection} for the first element that meets the condition, and returns null if no match found.
      * <br/>{ [ 1, 2, 3, 4 ] } firstOrNull(a > 2) => { 3 }
@@ -186,9 +186,9 @@ public interface ChainBuilder<T> {
     T firstOrNull(final WhereComparator<T> comparator);
     /**
      * <br/>{ [ 1, 2, 3, 4 ] } last => { 4 }
-     * <br/>{ [ ] } last => IndexOutOfBoundsException
+     * <br/>{ [ ] } last => NoSuchElementException
      * @return The last element from the collection.
-     * @throws IndexOutOfBoundsException
+     * @throws NoSuchElementException
      */
     T last();
     /**
@@ -206,7 +206,7 @@ public interface ChainBuilder<T> {
      * @return The last element that meets the condition specified.
      * @throws NoSuchElementException If no matching element found.
      */
-    T last(final WhereComparator<T> comparator) throws NoSuchElementException;
+    T last(final WhereComparator<T> comparator);
     /**
      * Selects {@link Collection} for the first element that meets the condition, and returns null if no match found.
      * <br/>{ [ 1, 2, 3, 4 ] } lastOrNull(a > 2) => { 3 }

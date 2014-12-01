@@ -371,11 +371,18 @@ class ChainEngineImpl<T> implements ChainEngine<T> {
      * <br/>{ [ ] } first => IndexOutOfBoundsException
      * @param collection The collection to operate on.
      * @return The first element from the collection.
-     * @throws IndexOutOfBoundsException
+     * @throws NoSuchElementException
      */
     @Override
-    public T first(final Collection<T> collection) throws IndexOutOfBoundsException{
-        return new ArrayList<T>(collection).get(0);
+    public T first(final Collection<T> collection){
+        try
+        {
+            return new ArrayList<T>(collection).get(0);
+        }
+        catch (IndexOutOfBoundsException indexOutOfBoundsException)
+        {
+            throw new NoSuchElementException();
+        }
     }
 
     /**
@@ -391,7 +398,7 @@ class ChainEngineImpl<T> implements ChainEngine<T> {
         {
             return first(collection);
         }
-        catch (IndexOutOfBoundsException e)
+        catch (NoSuchElementException e)
         {
             return null;
         }
@@ -443,12 +450,13 @@ class ChainEngineImpl<T> implements ChainEngine<T> {
 
     /**
      * <br/>{ [ 1, 2, 3, 4 ] } last => { 4 }
-     * <br/>{ [ ] } last => IndexOutOfBoundsException
+     * <br/>{ [ ] } last => NoSuchElementException
      * @param collection The collection to operate on.
      * @return The last element from the collection.
+     * @throws NoSuchElementException
      */
     @Override
-    public T last(final Collection<T> collection) throws IndexOutOfBoundsException
+    public T last(final Collection<T> collection)
     {
         return new ArrayList<T>(collection).get(collection.size() - 1);
     }

@@ -248,12 +248,12 @@ public abstract class ChainBuilderBase<T,E extends ChainEngine<T>> implements Ch
 
     /**
      * <br/>{ [ 1, 2, 3, 4 ] } first => { 1 }
-     * <br/>{ [ ] } first => IndexOutOfBoundsException
+     * <br/>{ [ ] } first => NoSuchElementException
      * @return The first element from the collection.
-     * @throws IndexOutOfBoundsException
+     * @throws NoSuchElementException
      */
     @Override
-    public T first() throws IndexOutOfBoundsException{
+    public T first(){
         return engine.first(collection);
     }
 
@@ -278,7 +278,7 @@ public abstract class ChainBuilderBase<T,E extends ChainEngine<T>> implements Ch
      * @throws NoSuchElementException If no matching element found.
      */
     @Override
-    public T first(WhereComparator<T> comparator) throws NoSuchElementException
+    public T first(WhereComparator<T> comparator)
     {
         return engine.first(collection, comparator);
     }
@@ -299,12 +299,12 @@ public abstract class ChainBuilderBase<T,E extends ChainEngine<T>> implements Ch
 
     /**
      * <br/>{ [ 1, 2, 3, 4 ] } last => { 4 }
-     * <br/>{ [ ] } last => IndexOutOfBoundsException
+     * <br/>{ [ ] } last => NoSuchElementException
      * @return The last element from the collection.
-     * @throws IndexOutOfBoundsException
+     * @throws NoSuchElementException
      */
     @Override
-    public T last() throws IndexOutOfBoundsException {
+    public T last() {
         return engine.last(collection);
     }
 
@@ -329,7 +329,7 @@ public abstract class ChainBuilderBase<T,E extends ChainEngine<T>> implements Ch
      * @throws NoSuchElementException If no matching element found.
      */
     @Override
-    public T last(WhereComparator<T> comparator) throws NoSuchElementException
+    public T last(WhereComparator<T> comparator)
     {
         return engine.last(collection,comparator);
     }

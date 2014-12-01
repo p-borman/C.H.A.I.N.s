@@ -9,7 +9,7 @@ import java.util.Comparator;
  * Provides all the logic that is used to operate on a {@link Collection} of {@link Number}s.
  * @param <T> The type of {@link Number} that is contained in the {@link Collection} to be operated on.
  */
-class NumberChainEngineImpl<T extends Number & Comparable> extends ChainEngineImpl<T> implements NumberChainEngine<T> {
+class NumberChainEngineImpl<T extends Number & Comparable<T>> extends ChainEngineImpl<T> implements NumberChainEngine<T> {
     /**
      * <br/>{ [ 2, 3, 4 ] } => { 2 }
      * @param collection The collection to operate on.

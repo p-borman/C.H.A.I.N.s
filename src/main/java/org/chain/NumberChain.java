@@ -7,7 +7,7 @@ import java.util.Collection;
  * Provides a fluent API to operate on a collection of {@link Number}s
  * @param <T> The kind of {@link Number}s that are contained in the collection.
  */
-public final class NumberChain<T extends Number & Comparable> extends ChainBuilderBase<T,NumberChainEngine<T>> implements NumberChainBuilder<T>
+public final class NumberChain<T extends Number & Comparable<T>> extends ChainBuilderBase<T,NumberChainEngine<T>> implements NumberChainBuilder<T>
 {
     /**
      *

@@ -169,10 +169,10 @@ interface ChainEngine<T>
     //access
     /**
      * <br/>{ [ 1, 2, 3, 4 ] } first => { 1 }
-     * <br/>{ [ ] } first => IndexOutOfBoundsException
+     * <br/>{ [ ] } first => NoSuchElementException
      * @param collection The collection to operate on.
      * @return The first element from the collection.
-     * @throws IndexOutOfBoundsException
+     * @throws NoSuchElementException If no matching element found.
      */
     T first(final Collection<T> collection);
     /**
@@ -192,7 +192,7 @@ interface ChainEngine<T>
      * @return The first element that meets the condition specified.
      * @throws NoSuchElementException If no matching element found.
      */
-    T first(final Collection<T> collection, final WhereComparator<T> comparator) throws NoSuchElementException;
+    T first(final Collection<T> collection, final WhereComparator<T> comparator);
     /**
      * Selects {@link Collection} for the first element that meets the condition, and returns null if no match found.
      * <br/>{ [ 1, 2, 3, 4 ] } firstOrNull(a > 2) => { 3 }
@@ -205,9 +205,10 @@ interface ChainEngine<T>
     T firstOrNull(final Collection<T> collection, final WhereComparator<T> comparator);
     /**
      * <br/>{ [ 1, 2, 3, 4 ] } last => { 4 }
-     * <br/>{ [ ] } last => IndexOutOfBoundsException
+     * <br/>{ [ ] } last => NoSuchElementException
      * @param collection The collection to operate on.
      * @return The last element from the collection.
+     * @throws NoSuchElementException If no matching element found.
      */
     T last(final Collection<T> collection);
     /**
@@ -227,7 +228,7 @@ interface ChainEngine<T>
      * @return The last element that meets the condition specified.
      * @throws NoSuchElementException If no matching element found.
      */
-    T last(final Collection<T> collection, final WhereComparator<T> comparator) throws NoSuchElementException;
+    T last(final Collection<T> collection, final WhereComparator<T> comparator);
     /**
      * Selects {@link Collection} for the first element that meets the condition, and returns null if no match found.
      * <br/>{ [ 1, 2, 3, 4 ] } lastOrNull(a > 2) => { 3 }
