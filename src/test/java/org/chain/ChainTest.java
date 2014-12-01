@@ -168,8 +168,7 @@ public class ChainTest
                         testClasses2.get(1),
                         testClasses2.get(2),
                         testClasses2.get(3),
-                        testClasses2.get(4))
-        ;
+                        testClasses2.get(4));
     }
 
     @Test

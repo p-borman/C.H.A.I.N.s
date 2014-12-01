@@ -24,7 +24,7 @@ public abstract class ChainBuilderBase<T,E extends ChainEngine<T>> implements Ch
     protected ChainBuilderBase(E engine, Collection<T> collection)
     {
         this.engine = engine;
-        this.collection = collection;
+        this.collection = collection == null ? null : new ArrayList<T>(collection);
     }
 
     /**
