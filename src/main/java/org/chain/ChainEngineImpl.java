@@ -5,7 +5,6 @@ import org.chain.filters.ManySelector;
 import org.chain.filters.Selector;
 import org.chain.filters.WhereComparator;
 
-import javax.xml.transform.Result;
 import java.util.*;
 
 /**
@@ -17,14 +16,14 @@ class ChainEngineImpl<T> implements ChainEngine<T> {
     ChainEngineImpl(){}
 
     /**
-     * Preforms an action using each element in the {@link Collection}.
+     * Performs an action using each element in the {@link Collection}.
      * @param collection The collection to operate on.
-     * @param action The action or modification to preform on each element.
+     * @param action The action or modification to perform on each element.
      */
     @Override
     public void each(final Collection<T> collection, final Action<T> action) {
         for (T t : collection) {
-            action.preform(t);
+            action.perform(t);
         }
     }
 
@@ -71,7 +70,7 @@ class ChainEngineImpl<T> implements ChainEngine<T> {
 
     /**
      * Builds a new {@link Collection} that contains all distinct elements from both {@link Collection}s.
-     * <br/>{ [ 1, 2, 3 ] } diverge { [ 2, 3, 4 ] } => { [ 1, 2, 3, 4 ] }
+     * <br/>{ [ 1, 2, 3 ] } union { [ 2, 3, 4 ] } => { [ 1, 2, 3, 4 ] }
      * @param collection1 The collection to operate on.
      * @param collection2 The {@link Collection} to union with the contained {@link Collection}.
      * @param comparator Defines how to check if an element is distinct.
@@ -97,7 +96,7 @@ class ChainEngineImpl<T> implements ChainEngine<T> {
         each(collection1, new Action<T>()
         {
             @Override
-            public void preform(final T t1)
+            public void perform(final T t1)
             {
                 Boolean any = any(collection2, new WhereComparator<T>()
                 {
@@ -132,7 +131,7 @@ class ChainEngineImpl<T> implements ChainEngine<T> {
         each(collection1, new Action<T>()
         {
             @Override
-            public void preform(final T t1)
+            public void perform(final T t1)
             {
                 Boolean none = none(collection2, new WhereComparator<T>()
                 {
@@ -150,7 +149,7 @@ class ChainEngineImpl<T> implements ChainEngine<T> {
         });
         each(collection2,new Action<T>() {
             @Override
-            public void preform(final T t2) {
+            public void perform(final T t2) {
                 Boolean none = none(collection1, new WhereComparator<T>()
                 {
                     @Override
@@ -181,7 +180,7 @@ class ChainEngineImpl<T> implements ChainEngine<T> {
 
         each(collection, new Action<T>() {
             @Override
-            public void preform(final T t1) {
+            public void perform(final T t1) {
                 Boolean none = none(ts, new WhereComparator<T>()
                 {
                     @Override
@@ -212,7 +211,7 @@ class ChainEngineImpl<T> implements ChainEngine<T> {
         final ArrayList<TD> tds = new ArrayList<TD>();
 
         each(collection,new Action<T>() {
-            public void preform(final T obj) {
+            public void perform(final T obj) {
                 tds.add(selector.select(obj));
             }
         });
@@ -233,7 +232,7 @@ class ChainEngineImpl<T> implements ChainEngine<T> {
         final ArrayList<TD> tds = new ArrayList<TD>();
 
         each(collection, new Action<T>() {
-            public void preform(T obj) {
+            public void perform(T obj) {
                 final Collection<TD> select = selector.select(obj);
                 for (TD td : select) {
                     tds.add(td);
@@ -257,7 +256,7 @@ class ChainEngineImpl<T> implements ChainEngine<T> {
 
         each(collection, new Action<T>() {
             @Override
-            public void preform(final T obj) {
+            public void perform(final T obj) {
                 if (comparator.meetsCondition(obj)){
                     ts.add(obj);
                 }

@@ -35,7 +35,7 @@ public class ChainEngineImplTest
     public void testShouldModifyEach()
     {
         chainEngine.each(testClasses, new Action<TestClass>() {
-                        public void preform(TestClass obj) {
+                        public void perform(TestClass obj) {
                 obj.setNum(obj.getNum() + 5);
             }
         });

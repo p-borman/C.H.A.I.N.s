@@ -34,7 +34,7 @@ public class ChainTest
     public void testShouldModifyEachObject()
     {
         chain.each(new Action<TestClass>() {
-            public void preform(TestClass obj) {
+            public void perform(TestClass obj) {
                 obj.setNum(obj.getNum() + 5);
             }
         });

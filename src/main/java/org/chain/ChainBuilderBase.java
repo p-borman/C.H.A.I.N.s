@@ -18,7 +18,7 @@ public abstract class ChainBuilderBase<T,E extends ChainEngine<T>> implements Ch
     protected Collection<T> collection;
 
     /**
-     * @param engine The {@link ChainEngine} that will be used to preform all actions or modifications
+     * @param engine The {@link ChainEngine} that will be used to perform all actions or modifications
      * @param collection The {@link Collection} that actions or modifications will be made on.
      */
     protected ChainBuilderBase(E engine, Collection<T> collection)
@@ -36,8 +36,8 @@ public abstract class ChainBuilderBase<T,E extends ChainEngine<T>> implements Ch
     }
 
     /**
-     * Preforms an action using each element in the {@link Collection}.
-     * @param action The action or modification to preform on each element.
+     * Performs an action using each element in the {@link Collection}.
+     * @param action The action or modification to perform on each element.
      */
     @Override
     public void each(Action<T> action) {
@@ -81,7 +81,7 @@ public abstract class ChainBuilderBase<T,E extends ChainEngine<T>> implements Ch
 
     /**
      * Builds a new {@link Collection} that contains all distinct elements from both {@link Collection}s.
-     * <br/>{ [ 1, 2, 3 ] } diverge { [ 2, 3, 4 ] } => { [ 1, 2, 3, 4 ] }
+     * <br/>{ [ 1, 2, 3 ] } union { [ 2, 3, 4 ] } => { [ 1, 2, 3, 4 ] }
      * @param collection2 The {@link Collection} to union with the contained {@link Collection}.
      * @param comparator Defines how to check if an element is distinct.
      * @return A {@link ChainBuilder} that contains a new {@link Collection} containing all distinct elements from both {@link Collection}s.

@@ -13,9 +13,9 @@ interface ChainEngine<T>
 {
     //mod
     /**
-     * Preforms an action using each element in the {@link Collection}.
+     * Performs an action using each element in the {@link Collection}.
      * @param collection The collection to operate on.
-     * @param action The action or modification to preform on each element.
+     * @param action The action or modification to perform on each element.
      */
     void each(final Collection<T> collection, final Action<T> action);
     /**
@@ -43,7 +43,7 @@ interface ChainEngine<T>
     Collection<T> concatenate(final Collection<T> collection1, final Collection<T> collection2);
     /**
      * Builds a new {@link Collection} that contains all distinct elements from both {@link Collection}s.
-     * <br/>{ [ 1, 2, 3 ] } diverge { [ 2, 3, 4 ] } => { [ 1, 2, 3, 4 ] }
+     * <br/>{ [ 1, 2, 3 ] } union { [ 2, 3, 4 ] } => { [ 1, 2, 3, 4 ] }
      * @param collection1 The collection to operate on.
      * @param collection2 The {@link Collection} to union with the contained {@link Collection}.
      * @param comparator Defines how to check if an element is distinct.
