@@ -179,6 +179,7 @@ interface ChainEngine<T>
     /**
      * <br/>{ [ 1, 2, 3, 4 ] } first => { 1 }
      * <br/>{ [ ] } first => NoSuchElementException
+     * <br/>{ } first => NoSuchElementException
      * @param collection The collection to operate on.
      * @return The first element from the collection.
      * @throws NoSuchElementException If no matching element found.
@@ -214,6 +215,8 @@ interface ChainEngine<T>
     T firstOrNull(final Collection<T> collection, final WhereComparator<T> comparator);
     /**
      * <br/>{ [ 1, 2, 3, 4 ] } last => { 4 }
+     * <br/>{ [ ] } last => NoSuchElementException
+     * <br/>{ } last => NoSuchElementException
      * @param collection The collection to operate on.
      * @return The last element from the collection.
      * @throws NoSuchElementException If no matching element found.
@@ -231,6 +234,7 @@ interface ChainEngine<T>
      * <br/>{ [ 1, 2, 3, 4 ] } last(a > 2) => { 3 }
      * <br/>{ [ 1, 2, 3, 4 ] } last(a > 200) => NoSuchElementException
      * <br/>{ [ ] } last(a > 2) => NoSuchElementException
+     * <br/>{ } last(a > 2) => NoSuchElementException
      * @param collection The collection to operate on.
      * @param comparator Defines the condition to be met for the element to be found.
      * @return The last element that meets the condition specified.

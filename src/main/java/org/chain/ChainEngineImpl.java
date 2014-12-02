@@ -13,6 +13,9 @@ import java.util.*;
  */
 class ChainEngineImpl<T> implements ChainEngine<T> {
 
+    private final String noMatchingElementsInCollection = "No element matching given comparator was found in the collection.";
+    private final String noElementsInCollection = "No elements found in the collection.";
+
     ChainEngineImpl(){}
 
     /**
@@ -98,11 +101,9 @@ class ChainEngineImpl<T> implements ChainEngine<T> {
             @Override
             public void perform(final T t1)
             {
-                Boolean any = any(collection2, new WhereComparator<T>()
-                {
+                Boolean any = any(collection2, new WhereComparator<T>() {
                     @Override
-                    public boolean meetsCondition(final T t2)
-                    {
+                    public boolean meetsCondition(final T t2) {
                         return comparator.compare(t1, t2) == 0;
                     }
                 });
@@ -150,11 +151,9 @@ class ChainEngineImpl<T> implements ChainEngine<T> {
         each(collection2,new Action<T>() {
             @Override
             public void perform(final T t2) {
-                Boolean none = none(collection1, new WhereComparator<T>()
-                {
+                Boolean none = none(collection1, new WhereComparator<T>() {
                     @Override
-                    public boolean meetsCondition(final T t1)
-                    {
+                    public boolean meetsCondition(final T t1) {
                         return comparator.compare(t1, t2) == 0;
                     }
                 });
@@ -393,6 +392,8 @@ class ChainEngineImpl<T> implements ChainEngine<T> {
      */
     @Override
     public T first(final Collection<T> collection){
+
+        throwNoSuchElementIfNullOrEmpty(collection, noElementsInCollection);
         try
         {
             return new ArrayList<T>(collection).get(0);
@@ -435,13 +436,14 @@ class ChainEngineImpl<T> implements ChainEngine<T> {
     @Override
     public T first(Collection<T> collection, WhereComparator<T> comparator) throws NoSuchElementException
     {
+        throwNoSuchElementIfNullOrEmpty(collection, noMatchingElementsInCollection);
         for (T t : collection)
         {
         if (comparator.meetsCondition(t)){
                 return t;
             }
         }
-        throw new NoSuchElementException("No element matching given comparator was found in the collection.");
+        throw new NoSuchElementException(noMatchingElementsInCollection);
     }
 
     /**
@@ -476,10 +478,15 @@ class ChainEngineImpl<T> implements ChainEngine<T> {
     @Override
     public T last(final Collection<T> collection)
     {
-        if (isNullOrEmpty(collection)){
-            throw new NoSuchElementException();
+        throwNoSuchElementIfNullOrEmpty(collection, noElementsInCollection);
+        try
+        {
+            return new ArrayList<T>(collection).get(collection.size() - 1);
         }
-        return new ArrayList<T>(collection).get(collection.size() - 1);
+        catch (NoSuchElementException e)
+        {
+            throw new NoSuchElementException(noElementsInCollection);
+        }
     }
 
     /**
@@ -514,6 +521,7 @@ class ChainEngineImpl<T> implements ChainEngine<T> {
     @Override
     public T last(Collection<T> collection, WhereComparator<T> comparator) throws NoSuchElementException
     {
+        throwNoSuchElementIfNullOrEmpty(collection, noMatchingElementsInCollection);
         T result = null;
         for (T t : collection)
         {
@@ -523,7 +531,7 @@ class ChainEngineImpl<T> implements ChainEngine<T> {
         }
         if (result == null)
         {
-            throw new NoSuchElementException("No element matching given comparator was found in the collection.");
+            throw new NoSuchElementException(noMatchingElementsInCollection);
         }
         return result;
     }
@@ -581,5 +589,11 @@ class ChainEngineImpl<T> implements ChainEngine<T> {
     @Override
     public Collection<T> take(Collection<T> collection, int numberToTake) {
         return new ArrayList<T>(collection).subList(0, numberToTake);
+    }
+
+    private void throwNoSuchElementIfNullOrEmpty(Collection<T> collection, String message) {
+        if (isNullOrEmpty(collection)){
+            throw new NoSuchElementException(message);
+        }
     }
 }

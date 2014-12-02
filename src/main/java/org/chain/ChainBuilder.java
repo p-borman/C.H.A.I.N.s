@@ -165,6 +165,7 @@ public interface ChainBuilder<T> {
     /**
      * <br/>{ [ 1, 2, 3, 4 ] } first => { 1 }
      * <br/>{ [ ] } first => NoSuchElementException
+     * <br/>{ } first => NoSuchElementException
      * @return The first element from the collection.
      * @throws NoSuchElementException
      */
@@ -180,6 +181,7 @@ public interface ChainBuilder<T> {
      * <br/>{ [ 1, 2, 3, 4 ] } first(a > 2) => { 3 }
      * <br/>{ [ 1, 2, 3, 4 ] } first(a > 200) => NoSuchElementException
      * <br/>{ [ ] } first(a > 2) => NoSuchElementException
+     * <br/>{ } first(a > 2) => NoSuchElementException
      * @param comparator Defines the condition to be met for the element to be found.
      * @return The first element that meets the condition specified.
      * @throws NoSuchElementException If no matching element found.
@@ -197,6 +199,7 @@ public interface ChainBuilder<T> {
     /**
      * <br/>{ [ 1, 2, 3, 4 ] } last => { 4 }
      * <br/>{ [ ] } last => NoSuchElementException
+     * <br/>{ } last => NoSuchElementException
      * @return The last element from the collection.
      * @throws NoSuchElementException
      */
@@ -212,6 +215,7 @@ public interface ChainBuilder<T> {
      * <br/>{ [ 1, 2, 3, 4 ] } last(a > 2) => { 3 }
      * <br/>{ [ 1, 2, 3, 4 ] } last(a > 200) => NoSuchElementException
      * <br/>{ [ ] } last(a > 2) => NoSuchElementException
+     * <br/>{ } last(a > 2) => NoSuchElementException
      * @param comparator Defines the condition to be met for the element to be found.
      * @return The last element that meets the condition specified.
      * @throws NoSuchElementException If no matching element found.
