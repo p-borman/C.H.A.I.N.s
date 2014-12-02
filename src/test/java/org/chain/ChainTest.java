@@ -4,6 +4,8 @@ import org.chain.filters.Action;
 import org.chain.filters.ManySelector;
 import org.chain.filters.Selector;
 import org.chain.filters.WhereComparator;
+import org.chain.model.TestClass;
+import org.chain.model.TestWrapper;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -18,14 +20,16 @@ public class ChainTest
     ChainBuilder<TestClass> chain = null;
 
     @Before
-    public void setup(){
-        testClasses = new ArrayList<TestClass>() {{
-            add(new TestClass(1, "string " + 1));
-            add(new TestClass(2, "string " + 2));
-            add(new TestClass(3, "string " + 3));
-            add(new TestClass(4, "string " + 4));
-            add(new TestClass(5, "string " + 5));
-        }};
+    public void setup()
+    {
+        testClasses = new ArrayList<TestClass>()
+        {{
+                add(new TestClass(1, "string " + 1));
+                add(new TestClass(2, "string " + 2));
+                add(new TestClass(3, "string " + 3));
+                add(new TestClass(4, "string " + 4));
+                add(new TestClass(5, "string " + 5));
+            }};
 
         chain = new Chain<TestClass>(testClasses);
     }
@@ -199,6 +203,34 @@ public class ChainTest
     @Test
     public void testShouldCheckIfCollectionIsNotNullOrEmpty() {
         assertThat(new Chain<TestClass>(testClasses).isNullOrEmpty()).isFalse();
+    }
+
+    @Test
+    public void testShouldCheckAllMatchCondition() {
+        Boolean any = chain
+                .all(new WhereComparator<TestClass>()
+                {
+                                        public boolean meetsCondition(TestClass obj)
+                    {
+                        return obj.getNum() >= 0;
+                    }
+                });
+
+        assertThat(any).isTrue();
+    }
+
+    @Test
+    public void testShouldCheckAllDoNotMatchCondition() {
+        Boolean any = chain
+                .all(new WhereComparator<TestClass>()
+                {
+                                        public boolean meetsCondition(TestClass obj)
+                    {
+                        return obj.getNum() > 3;
+                    }
+                });
+
+        assertThat(any).isFalse();
     }
 
     @Test
@@ -599,49 +631,4 @@ public class ChainTest
                 .contains(testClasses.get(0),
                         testClasses.get(1));
     }
-
-    public class TestWrapper{
-        private Collection<TestClass> testClasses;
-
-        public TestWrapper(Collection<TestClass> testClasses) {
-            setTestClasses(testClasses);
-        }
-
-        public Collection<TestClass> getTestClasses() {
-            return testClasses;
-        }
-
-        public void setTestClasses(Collection<TestClass> testClasses) {
-            this.testClasses = testClasses;
-        }
-    }
-
-    public class TestClass
-    {
-        private int num;
-        private String string;
-
-        public TestClass(int num, String string){
-            setNum(num);
-            setString(string);
-        }
-
-        public String getString() {
-            return string;
-        }
-
-        public void setString(String string) {
-            this.string = string;
-        }
-
-        public int getNum() {
-            return num;
-        }
-
-        public void setNum(int num) {
-            this.num = num;
-        }
-    }
-
-
 }

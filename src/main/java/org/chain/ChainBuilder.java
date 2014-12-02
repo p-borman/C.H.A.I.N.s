@@ -106,6 +106,16 @@ public interface ChainBuilder<T> {
      * @return True if the {@link Collection} is null or contains zero elements.
      */
     Boolean isNullOrEmpty();
+
+    /**
+     * Checks if all elements meet the condition specified in the {@link Collection}.
+     * <br/>{ [ 1, 2, 3, 4 ] } all(a >= 0) => { true }
+     * <br/>{ [ 1, 2, 3, 4 ] } all(a >= 2) => { false }
+     * @param comparator Defines the condition to be met for each element.
+     * @return True if all elements meet the condition specified in the {@link Collection}.
+     */
+    Boolean all(WhereComparator<T> comparator);
+
     /**
      * Checks if any element meet the condition specified in the {@link Collection}.
      * <br/>{ [ 1, 2, 3, 4 ] } any(a >= 2) => { true }

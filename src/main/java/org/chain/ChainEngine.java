@@ -116,6 +116,15 @@ interface ChainEngine<T>
      */
     Boolean isNullOrEmpty(final Collection<T> collection);
     /**
+     * Checks if all elements meet the condition specified in the {@link Collection}.
+     * <br/>{ [ 1, 2, 3, 4 ] } all(a >= 0) => true
+     * <br/>{ [ 1, 2, 3, 4 ] } all(a >= 2) => false
+     * @param collection The collection to operate on.
+     * @param comparator Defines the condition to be met for each element.
+     * @return True if all elements meet the condition specified in the {@link Collection}.
+     */
+    Boolean all(final Collection<T> collection, final WhereComparator<T> comparator);
+    /**
      * Checks if any element meet the condition specified in the {@link Collection}.
      * <br/>{ [ 1, 2, 3, 4 ] } any(a >= 2) => true
      * <br/>{ [ 1, 2, 3, 4 ] } any(a >= 200) => false
@@ -205,7 +214,6 @@ interface ChainEngine<T>
     T firstOrNull(final Collection<T> collection, final WhereComparator<T> comparator);
     /**
      * <br/>{ [ 1, 2, 3, 4 ] } last => { 4 }
-     * <br/>{ [ ] } last => NoSuchElementException
      * @param collection The collection to operate on.
      * @return The last element from the collection.
      * @throws NoSuchElementException If no matching element found.

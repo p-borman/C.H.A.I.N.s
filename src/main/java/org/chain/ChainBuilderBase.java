@@ -9,7 +9,7 @@ import org.chain.filters.WhereComparator;
 import java.util.*;
 
 /**
- * Provides a fluent API to operate on a any kind of collection.
+ * Provides a fluent API to operate on any kind of collection.
  * @param <T> The type found in the {@link Collection} in the chain.
  * @param <E> The type of {@link ChainEngine} to use
  */
@@ -176,6 +176,18 @@ public abstract class ChainBuilderBase<T,E extends ChainEngine<T>> implements Ch
     @Override
     public Boolean isNullOrEmpty() {
         return engine.isNullOrEmpty(collection);
+    }
+
+    /**
+     * Checks if all elements meet the condition specified in the {@link Collection}.
+     * <br/>{ [ 1, 2, 3, 4 ] } all(a >= 0) => { true }
+     * <br/>{ [ 1, 2, 3, 4 ] } all(a >= 2) => { false }
+     * @param comparator Defines the condition to be met for each element.
+     * @return True if all elements meet the condition specified in the {@link Collection}.
+     */
+    @Override
+    public Boolean all(WhereComparator<T> comparator) {
+        return engine.all(collection, comparator);
     }
 
     /**

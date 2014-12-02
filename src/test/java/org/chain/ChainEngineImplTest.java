@@ -4,6 +4,8 @@ import org.chain.filters.Action;
 import org.chain.filters.ManySelector;
 import org.chain.filters.Selector;
 import org.chain.filters.WhereComparator;
+import org.chain.model.TestClass;
+import org.chain.model.TestWrapper;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -17,30 +19,32 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class ChainEngineImplTest
 {
 
-    private ArrayList<TestClass> testClasses = null;
+    private ArrayList<TestClass> elements = null;
     ChainEngine<TestClass> chainEngine = new ChainEngineImpl<TestClass>();
 
     @Before
-    public void setup(){
-        testClasses = new ArrayList<TestClass>() {{
-            add(new TestClass(1, "string " + 1));
-            add(new TestClass(2, "string " + 2));
-            add(new TestClass(3, "string " + 3));
-            add(new TestClass(4, "string " + 4));
-            add(new TestClass(5, "string " + 5));
-        }};
+    public void setup()
+    {
+        elements = new ArrayList<TestClass>()
+        {{
+                add(new TestClass(1, "string " + 1));
+                add(new TestClass(2, "string " + 2));
+                add(new TestClass(3, "string " + 3));
+                add(new TestClass(4, "string " + 4));
+                add(new TestClass(5, "string " + 5));
+            }};
     }
 
     @Test
     public void testShouldModifyEach()
     {
-        chainEngine.each(testClasses, new Action<TestClass>() {
+        chainEngine.each(elements, new Action<TestClass>() {
                         public void perform(TestClass obj) {
                 obj.setNum(obj.getNum() + 5);
             }
         });
 
-        ArrayList<Integer> select = new ArrayList<Integer>(chainEngine.select(testClasses, new Selector<TestClass, Integer>() {
+        ArrayList<Integer> select = new ArrayList<Integer>(chainEngine.select(elements, new Selector<TestClass, Integer>() {
                         public Integer select(TestClass obj) {
                 return obj.getNum();
             }
@@ -52,7 +56,7 @@ public class ChainEngineImplTest
 
     @Test
     public void testShouldSort() {
-        testClasses = new ArrayList<TestClass>() {{
+        elements = new ArrayList<TestClass>() {{
             add(new TestClass(3, "string " + 3));
             add(new TestClass(5, "string " + 5));
             add(new TestClass(1, "string " + 1));
@@ -60,7 +64,7 @@ public class ChainEngineImplTest
             add(new TestClass(2, "string " + 2));
         }};
 
-        ArrayList<TestClass> sort = new ArrayList<TestClass>(chainEngine.sort(testClasses,
+        ArrayList<TestClass> sort = new ArrayList<TestClass>(chainEngine.sort(elements,
                 new Comparator<TestClass>()
                 {
                                         public int compare(TestClass o1, TestClass o2)
@@ -69,36 +73,36 @@ public class ChainEngineImplTest
                     }
                 }));
 
-        assertThat(sort).hasSize(testClasses.size());
+        assertThat(sort).hasSize(elements.size());
         for (int i = 0; i < sort.size() - 1; i++){
             assertThat(sort.get(i).getNum()).isEqualTo(i+1);
         }
-        assertThat(testClasses.get(0).getNum()).isEqualTo(3);
-        assertThat(testClasses.get(1).getNum()).isEqualTo(5);
-        assertThat(testClasses.get(2).getNum()).isEqualTo(1);
-        assertThat(testClasses.get(3).getNum()).isEqualTo(4);
-        assertThat(testClasses.get(4).getNum()).isEqualTo(2);
+        assertThat(elements.get(0).getNum()).isEqualTo(3);
+        assertThat(elements.get(1).getNum()).isEqualTo(5);
+        assertThat(elements.get(2).getNum()).isEqualTo(1);
+        assertThat(elements.get(3).getNum()).isEqualTo(4);
+        assertThat(elements.get(4).getNum()).isEqualTo(2);
     }
 
     @Test
     public void testShouldReverse() {
 
-        ArrayList<TestClass> reverse = new ArrayList<TestClass>(chainEngine.reverse(testClasses));
+        ArrayList<TestClass> reverse = new ArrayList<TestClass>(chainEngine.reverse(elements));
 
-        assertThat(reverse).hasSize(testClasses.size());
+        assertThat(reverse).hasSize(elements.size());
         for (int i = 0; i < reverse.size() - 1; i++){
             assertThat(reverse.get(i).getNum()).isEqualTo(reverse.size() - i);
         }
-        assertThat(testClasses.get(0).getNum()).isEqualTo(1);
-        assertThat(testClasses.get(1).getNum()).isEqualTo(2);
-        assertThat(testClasses.get(2).getNum()).isEqualTo(3);
-        assertThat(testClasses.get(3).getNum()).isEqualTo(4);
-        assertThat(testClasses.get(4).getNum()).isEqualTo(5);
+        assertThat(elements.get(0).getNum()).isEqualTo(1);
+        assertThat(elements.get(1).getNum()).isEqualTo(2);
+        assertThat(elements.get(2).getNum()).isEqualTo(3);
+        assertThat(elements.get(3).getNum()).isEqualTo(4);
+        assertThat(elements.get(4).getNum()).isEqualTo(5);
     }
 
     @Test
     public void testShouldSelect() {
-        Collection<Integer> select = chainEngine.select(testClasses, new Selector<TestClass, Integer>() {
+        Collection<Integer> select = chainEngine.select(elements, new Selector<TestClass, Integer>() {
                         public Integer select(TestClass obj) {
                 return obj.getNum();
             }
@@ -120,7 +124,7 @@ public class ChainEngineImplTest
             add(new TestClass(10, "string " + 10));
         }};
         final ArrayList<TestWrapper> testWrappers = new ArrayList<TestWrapper>() {{
-            add(new TestWrapper(testClasses));
+            add(new TestWrapper(elements));
             add(new TestWrapper(testClasses2));
         }};
 
@@ -134,12 +138,12 @@ public class ChainEngineImplTest
         });
 
         assertThat(selectMany)
-                .hasSize(testClasses.size() + testClasses2.size())
-                .contains(testClasses.get(0),
-                        testClasses.get(1),
-                        testClasses.get(2),
-                        testClasses.get(3),
-                        testClasses.get(4),
+                .hasSize(elements.size() + testClasses2.size())
+                .contains(elements.get(0),
+                        elements.get(1),
+                        elements.get(2),
+                        elements.get(3),
+                        elements.get(4),
                         testClasses2.get(0),
                         testClasses2.get(1),
                         testClasses2.get(2),
@@ -150,7 +154,7 @@ public class ChainEngineImplTest
 
     @Test
     public void testShouldFilterUsingWhere() {
-        Collection<TestClass> where = chainEngine.where(testClasses,
+        Collection<TestClass> where = chainEngine.where(elements,
                 new WhereComparator<TestClass>()
                 {
                                         public boolean meetsCondition(TestClass obj)
@@ -161,8 +165,8 @@ public class ChainEngineImplTest
 
         assertThat(where)
                 .hasSize(2)
-                .contains(testClasses.get(3),
-                        testClasses.get(4));
+                .contains(elements.get(3),
+                        elements.get(4));
     }
 
     @Test
@@ -177,12 +181,38 @@ public class ChainEngineImplTest
 
     @Test
     public void testShouldCheckIfCollectionIsNotNullOrEmpty() {
-        assertThat(chainEngine.isNullOrEmpty(testClasses)).isFalse();
+        assertThat(chainEngine.isNullOrEmpty(elements)).isFalse();
+    }
+
+    @Test
+    public void testShouldCheckAllMatchCondition() {
+        Boolean any = chainEngine.all(elements, new WhereComparator<TestClass>()
+        {
+                        public boolean meetsCondition(TestClass obj)
+            {
+                return obj.getNum() >= 0;
+            }
+        });
+
+        assertThat(any).isTrue();
+    }
+
+    @Test
+    public void testShouldCheckAllDoNotMatchCondition() {
+        Boolean any = chainEngine.all(elements, new WhereComparator<TestClass>()
+        {
+                        public boolean meetsCondition(TestClass obj)
+            {
+                return obj.getNum() >= 2;
+            }
+        });
+
+        assertThat(any).isFalse();
     }
 
     @Test
     public void testShouldCheckAnyMatchCondition() {
-        Boolean any = chainEngine.any(testClasses, new WhereComparator<TestClass>()
+        Boolean any = chainEngine.any(elements, new WhereComparator<TestClass>()
         {
                         public boolean meetsCondition(TestClass obj)
             {
@@ -195,14 +225,14 @@ public class ChainEngineImplTest
 
     @Test
     public void testShouldCheckAnyInCollection() {
-        Boolean any = chainEngine.any(testClasses);
+        Boolean any = chainEngine.any(elements);
 
         assertThat(any).isTrue();
     }
 
     @Test
     public void testShouldCheckNoneMatchCondition() {
-        Boolean none = chainEngine.none(testClasses, new WhereComparator<TestClass>()
+        Boolean none = chainEngine.none(elements, new WhereComparator<TestClass>()
         {
                         public boolean meetsCondition(TestClass obj)
             {
@@ -222,7 +252,7 @@ public class ChainEngineImplTest
 
     @Test
     public void testShouldGetQuantityMatchCondition() {
-        Integer count = chainEngine.count(testClasses, new WhereComparator<TestClass>()
+        Integer count = chainEngine.count(elements, new WhereComparator<TestClass>()
         {
                         public boolean meetsCondition(TestClass obj)
             {
@@ -235,16 +265,16 @@ public class ChainEngineImplTest
 
     @Test
     public void testShouldGetQuantityInCollection() {
-        Integer count = chainEngine.count(testClasses);
+        Integer count = chainEngine.count(elements);
 
-        assertThat(count).isEqualTo(testClasses.size());
+        assertThat(count).isEqualTo(elements.size());
     }
 
     @Test
     public void testShouldGetFirst() {
-        TestClass first = chainEngine.first(testClasses);
+        TestClass first = chainEngine.first(elements);
 
-        assertThat(first).isEqualToComparingFieldByField(testClasses.get(0));
+        assertThat(first).isEqualToComparingFieldByField(elements.get(0));
     }
 
     @Test
@@ -257,7 +287,7 @@ public class ChainEngineImplTest
 
     @Test
     public void testShouldGetFirstMatchingCondition() {
-        TestClass first = chainEngine.first(testClasses, new WhereComparator<TestClass>()
+        TestClass first = chainEngine.first(elements, new WhereComparator<TestClass>()
         {
                         public boolean meetsCondition(TestClass obj)
             {
@@ -265,7 +295,7 @@ public class ChainEngineImplTest
             }
         });
 
-        assertThat(first).isEqualToComparingFieldByField(testClasses.get(2));
+        assertThat(first).isEqualToComparingFieldByField(elements.get(2));
     }
 
     @Test
@@ -273,7 +303,7 @@ public class ChainEngineImplTest
         NoSuchElementException error = null;
         try
         {
-            chainEngine.first(testClasses, new WhereComparator<TestClass>()
+            chainEngine.first(elements, new WhereComparator<TestClass>()
             {
                                 public boolean meetsCondition(TestClass obj)
                 {
@@ -290,7 +320,7 @@ public class ChainEngineImplTest
 
     @Test
     public void testShouldGetFirstOrNullMatchingCondition() {
-        TestClass first = chainEngine.firstOrNull(testClasses, new WhereComparator<TestClass>()
+        TestClass first = chainEngine.firstOrNull(elements, new WhereComparator<TestClass>()
         {
                         public boolean meetsCondition(TestClass obj)
             {
@@ -298,14 +328,14 @@ public class ChainEngineImplTest
             }
         });
 
-        assertThat(first).isEqualToComparingFieldByField(testClasses.get(2));
+        assertThat(first).isEqualToComparingFieldByField(elements.get(2));
     }
 
     @Test
     public void testShouldGetNullWhenGettingFirstOrNullMatchingCondition() {
 
         final TestClass testClass = chainEngine
-                .firstOrNull(testClasses, new WhereComparator<TestClass>()
+                .firstOrNull(elements, new WhereComparator<TestClass>()
                 {
                                         public boolean meetsCondition(TestClass obj)
                     {
@@ -318,9 +348,9 @@ public class ChainEngineImplTest
 
     @Test
     public void testShouldGetLast() {
-        TestClass last = chainEngine.last(testClasses);
+        TestClass last = chainEngine.last(elements);
 
-        assertThat(last).isEqualToComparingFieldByField(testClasses.get(testClasses.size() - 1));
+        assertThat(last).isEqualToComparingFieldByField(elements.get(elements.size() - 1));
     }
 
     @Test
@@ -333,7 +363,7 @@ public class ChainEngineImplTest
 
     @Test
     public void testShouldGetLastMatchingCondition() {
-        TestClass last = chainEngine.last(testClasses, new WhereComparator<TestClass>()
+        TestClass last = chainEngine.last(elements, new WhereComparator<TestClass>()
         {
                         public boolean meetsCondition(TestClass obj)
             {
@@ -341,7 +371,7 @@ public class ChainEngineImplTest
             }
         });
 
-        assertThat(last).isEqualToComparingFieldByField(testClasses.get(2));
+        assertThat(last).isEqualToComparingFieldByField(elements.get(2));
     }
 
     @Test
@@ -349,7 +379,7 @@ public class ChainEngineImplTest
         NoSuchElementException error = null;
         try
         {
-            chainEngine.last(testClasses, new WhereComparator<TestClass>()
+            chainEngine.last(elements, new WhereComparator<TestClass>()
             {
                                 public boolean meetsCondition(TestClass obj)
                 {
@@ -366,7 +396,7 @@ public class ChainEngineImplTest
 
     @Test
     public void testShouldGetLastOrNullMatchingCondition() {
-        TestClass last = chainEngine.lastOrNull(testClasses, new WhereComparator<TestClass>()
+        TestClass last = chainEngine.lastOrNull(elements, new WhereComparator<TestClass>()
         {
                         public boolean meetsCondition(TestClass obj)
             {
@@ -374,14 +404,14 @@ public class ChainEngineImplTest
             }
         });
 
-        assertThat(last).isEqualToComparingFieldByField(testClasses.get(2));
+        assertThat(last).isEqualToComparingFieldByField(elements.get(2));
     }
 
     @Test
     public void testShouldGetNullWhenGettingLastOrNullMatchingCondition() {
 
         final TestClass testClass = chainEngine
-                .lastOrNull(testClasses, new WhereComparator<TestClass>()
+                .lastOrNull(elements, new WhereComparator<TestClass>()
                 {
                                         public boolean meetsCondition(TestClass obj)
                     {
@@ -396,9 +426,9 @@ public class ChainEngineImplTest
     public void testShouldGetValueAtIndex() {
         int index = 1;
 
-        TestClass at = chainEngine.at(testClasses, index);
+        TestClass at = chainEngine.at(elements, index);
 
-        assertThat(at).isEqualToComparingFieldByField(testClasses.get(index));
+        assertThat(at).isEqualToComparingFieldByField(elements.get(index));
     }
 
     @Test
@@ -544,67 +574,22 @@ public class ChainEngineImplTest
 
     @Test
     public void testShouldSkip() {
-        Collection<TestClass> skip = chainEngine.skip(testClasses, 2);
+        Collection<TestClass> skip = chainEngine.skip(elements, 2);
 
         assertThat(skip)
-                .hasSize(testClasses.size()-2)
-                .contains(testClasses.get(2),
-                        testClasses.get(3),
-                        testClasses.get(4));
+                .hasSize(elements.size()-2)
+                .contains(elements.get(2),
+                        elements.get(3),
+                        elements.get(4));
     }
 
     @Test
     public void testShouldTake() {
-        Collection<TestClass> skip = chainEngine.take(testClasses, 2);
+        Collection<TestClass> skip = chainEngine.take(elements, 2);
 
         assertThat(skip)
                 .hasSize(2)
-                .contains(testClasses.get(0),
-                        testClasses.get(1));
+                .contains(elements.get(0),
+                        elements.get(1));
     }
-
-    public class TestWrapper{
-        private Collection<TestClass> testClasses;
-
-        public TestWrapper(Collection<TestClass> testClasses) {
-            setTestClasses(testClasses);
-        }
-
-        public Collection<TestClass> getTestClasses() {
-            return testClasses;
-        }
-
-        public void setTestClasses(Collection<TestClass> testClasses) {
-            this.testClasses = testClasses;
-        }
-    }
-
-    public class TestClass
-    {
-        private int num;
-        private String string;
-
-        public TestClass(int num, String string){
-            setNum(num);
-            setString(string);
-        }
-
-        public String getString() {
-            return string;
-        }
-
-        public void setString(String string) {
-            this.string = string;
-        }
-
-        public int getNum() {
-            return num;
-        }
-
-        public void setNum(int num) {
-            this.num = num;
-        }
-    }
-
-
 }
